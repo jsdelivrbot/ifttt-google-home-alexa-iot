@@ -20,8 +20,12 @@ test('responds to requests', (t) => {
       t.false(error);
       // Successful response
       t.equal(response.statusCode, 200);
+      
+      t.comment(body.indexOf("<title>Goole Home and Alexa - IFTTT MQTT Sample</title>"));
+      t.comment(body.indexOf("IFTTT"));
+      
       // Assert content checks
-      t.notEqual(body.indexOf("<title>Goole Home/Alexa IFTTT MQTT Sample</title>"), -1);
+      t.notEqual(body.indexOf("<title>Goole Home and Alexa - IFTTT MQTT Sample</title>"), -1);
       t.notEqual(body.indexOf("IFTTT"), -1);
     });
   });
