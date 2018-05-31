@@ -1,2 +1,4 @@
 # ifttt-google-home-alexa-iot
-Heroko Sample Test App for Google Home automation
+Sample IFTTT Service to send Action Command to Arduino Sensor using MQTT protocol. This service can be configured to Google Home and Alexa.
+
+ 

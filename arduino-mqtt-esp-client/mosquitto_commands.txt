@@ -1,0 +1,1 @@
+mosquitto_pub -h test.mosquitto.org -d -t sudhakar/home/hall/On/switch -m "Hello from Terminal window 2!"

@@ -1,10 +1,34 @@
-const express = require('express')
-const path = require('path')
+const express = require('express');
+const path = require('path');
+const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 5000
 
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+var mqttController = require('./api/mqttController')
+var app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// Return HTML Page
+app.get('/', (req, res) => res.render('pages/index'));
+
+// Local Home Connected Arduino Sensor Test
+app.get('/api/mqtt-health-check', mqttController.mqttHealthCheck);
+
+// Internal API Test
+app.get('/api/health-check', (req,res,next)=>{
+  let data = {
+    message:'hello world'
+  };
+  res.status(200).send(data);
+});
+
+// Redirect all IFTTT request to Sensors
+app.post('/api/ifttt', mqttController.sendMessage);
+
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+

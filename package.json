@@ -11,8 +11,10 @@
     "test": "node test.js"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "ejs": "^2.5.6",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "paho-mqtt": "^1.0.4"
   },
   "devDependencies": {
     "request": "^2.81.0",
@@ -28,7 +30,9 @@
     "express",
     "google home",
     "Alexa",
-    "iot"
+    "iot",
+    "mqtt",
+    "mosquito"
   ],
   "license": "MIT"
 }
