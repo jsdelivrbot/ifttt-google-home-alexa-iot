@@ -1,19 +1,32 @@
 'use strict'
-//var pahoClient = require('paho-mqtt');
+var mqttClient = require('./mqtt-client');
+
+exports.connectMQTT = () =>{
+    mqttClient.initializeMQTT();
+};
 
 exports.sendMessage = (req, res) =>{
+    mqttClient.publishMessage(req.body);
+    return res.status(200).send("Task Done");
+};
 
-    let response = {
-        message : "message sent"
+exports.testMQTTMessage = (req, res) =>{
+    var message = {
+        sensorId: "switch",
+        command : "power",
+        action : "on"
     };
-    return res.status(200).send(response);
+    mqttClient.publishMessage(message);
+    return res.status(200).send("Test Success");
 };
 
 exports.mqttHealthCheck = (req, res) =>{
-
-    let response = {
-        message : "message sent"
-    };
-    return res.status(200).send(response);
+    
+    if(!mqttClient.isConnected()) {
+        return res.status(200).send({connected:"false"});
+    }
+    else {
+        return res.status(200).send({connected:"true"});
+    }
 };
 

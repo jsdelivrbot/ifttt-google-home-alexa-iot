@@ -1,5 +1,7 @@
+
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <JsonParser.h>
 
 // WIfi Settings
 const char* ssid = "U&ME";
@@ -17,6 +19,8 @@ WiFiClient wifiClient;
 PubSubClient mqttClient(wifiClient);
 
 const int ledPin = 2;
+
+JsonParser<32> parser;
 
 void setup() {
   Serial.begin(115200);
@@ -47,13 +51,18 @@ void loop() {
 void mqtt_callback(char *topic, byte* payload, unsigned int length) {
   Serial.print("message received : ");
   Serial.print(topic);
-  Serial.print("]");
+  char receivedChar[length];
   for(int i=0;i<length;i++) {
-    char receivedChar = (char)payload[i];
-    Serial.print(receivedChar);
-    //if(receivedChar == '0') {
-    //}
+    receivedChar[i] = (char)payload[i];
+    Serial.print(receivedChar[i]);
   }
+
+  JsonHashTable hashTable = parser.parseHashTable(receivedChar);
+
+  Serial.print(hashTable.getString("sensorId"));
+  Serial.print(hashTable.getString("command"));
+  Serial.print(hashTable.getString("action"));
+  
   digitalWrite(ledPin, 1);
   delay(500);
   digitalWrite(ledPin, 0);

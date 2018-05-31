@@ -13,11 +13,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+mqttController.connectMQTT();
+
 // Return HTML Page
 app.get('/', (req, res) => res.render('pages/index'));
 
 // Local Home Connected Arduino Sensor Test
 app.get('/api/mqtt-health-check', mqttController.mqttHealthCheck);
+
+app.get('/api/mqtt-test-message', mqttController.testMQTTMessage);
+
 
 // Internal API Test
 app.get('/api/health-check', (req,res,next)=>{
