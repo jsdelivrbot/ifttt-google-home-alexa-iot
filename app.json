@@ -2,7 +2,7 @@
   "name": "Sample IFTTT Service to send command to Arduino Sensor",
   "description": "Sample IFTTT Service to send command to Arduino Sensor using MQTT protocol",
   "repository": "https://github.com/Sudhakar85/ifttt-google-home-alexa-iot.git",
-  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "logo": "https://cdn.jsdelivr.net/gh/heroku/node-js-getting-started@master/public/node.svg",
   "keywords": ["node", "express", "heroku", "google home","Alexa","iot", "ifttt", "mosquito", "mqtt"],
   "image": "heroku/nodejs"
 }
